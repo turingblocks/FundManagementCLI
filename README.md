@@ -2,12 +2,21 @@
 Python CLI Fund Management Application with Reporting and Portfolio Graph
 
 A primitive fund management CLI application with basic functions.
--Add Company
--Delete Company
--Track Companies (List)
--Generate Fund Report (List)
--Generate Pie Chart
--Save Fund Data as CSV (Export)
--Exit
+<ol>
+<li>Add Company</li>
+<li>Delete Company</li>
+<li>Track Companies (List)</li>
+<li>Generate Fund Report (List)</li>
+<li>Generate Pie Chart</li>
+<li>Save Fund Data as CSV (Export)</li>
+<li>Exit</li>
+</ol>  
 
-![Screenshot 2023-07-16 at 11 02 53 AM](https://github.com/turingblocks/fundmanagementCLI/assets/101488664/3128c5d4-d058-494a-bc0a-5603c14bab4f)
+![Screenshot 2023-07-16 at 11 02 53 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/8efb4e3d-4ec1-4081-8f3b-0fe0105188c4)
+
+
+![Screenshot 2023-07-16 at 11 11 50 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/394be5bc-97a5-4eef-9e0e-3a92d3028e6d)
+
+
+Please note, it is by no means perfect, WIP.
+
