@@ -3,11 +3,11 @@ Python CLI Fund Management Application with Reporting and Portfolio Graph
 
 To run just open terminal or cmd:
 
-cd FundManagementCLI
+``` cd FundManagementCLI ```
 
-python fundmanagement.py
+``` python fundmanagement.py ```
 or
-python3 fundmanagement.py
+``` python3 fundmanagement.py ```
 
 A primitive fund management CLI application with basic functions.
 <ol>
