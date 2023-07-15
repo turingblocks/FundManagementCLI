@@ -1,4 +1,4 @@
-# fundmanagementCLI
+# FundManagementCLI
 Python CLI Fund Management Application with Reporting and Portfolio Graph
 
 A primitive fund management CLI application with basic functions.
