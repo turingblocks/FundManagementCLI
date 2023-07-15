@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+from colorama import Fore, Style
 
 class Company:
     def __init__(self, name, business_type, forecasted_returns):
@@ -14,18 +15,18 @@ class Fund:
 
     def add_company(self, company):
         self.companies.append(company)
-        print(f"Added {company.name} to the fund.")
+        print(f"{Fore.GREEN}Added {company.name} to the fund.{Style.RESET_ALL}")
 
     def delete_company(self, company_name):
         for company in self.companies:
             if company.name == company_name:
                 self.companies.remove(company)
-                print(f"Deleted {company_name} from the fund.")
+                print(f"{Fore.RED}Deleted {company_name} from the fund.{Style.RESET_ALL}")
                 return
         print(f"{company_name} not found in the fund.")
 
     def track_companies(self):
-        print("Companies in the fund:")
+        print(f"\n{Fore.CYAN}Companies in the fund:{Style.RESET_ALL}")
         if self.companies:
             for company in self.companies:
                 print(f"Name: {company.name}")
@@ -37,7 +38,7 @@ class Fund:
 
     def generate_report(self):
         if self.companies:
-            report = "--- Fund Report ---\n"
+            report = f"\n{Fore.YELLOW}--- Fund Report ---{Style.RESET_ALL}\n"
             for company in self.companies:
                 report += f"Name: {company.name}\n"
                 report += f"Business Type: {company.business_type}\n"
@@ -59,7 +60,7 @@ class Fund:
 
         plt.pie(sizes, labels=labels, autopct='%1.1f%%')
         plt.axis('equal')
-        plt.title('Fund Split by Business Type')
+        plt.title(f"{Fore.MAGENTA}Fund Split by Business Type{Style.RESET_ALL}")
         plt.show()
 
     def save_as_csv(self):
@@ -69,7 +70,7 @@ class Fund:
             writer.writerow(["Name", "Business Type", "Forecasted Returns"])
             for company in self.companies:
                 writer.writerow([company.name, company.business_type, company.forecasted_returns])
-        print(f"Fund data saved to {filename}.")
+        print(f"{Fore.GREEN}Fund data saved to {filename}.{Style.RESET_ALL}")
 
 
 def add_company_to_fund(fund):
@@ -113,7 +114,7 @@ def main():
 
     while True:
         print("\n" + "=" * 30)
-        print("--- Fund Management System ---")
+        print(f"{Fore.BLUE}--- Fund Management System ---{Style.RESET_ALL}")
         print("1. Add Company")
         print("2. Delete Company")
         print("3. Track Companies")
