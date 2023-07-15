@@ -1,6 +1,14 @@
 # FundManagementCLI
 Python CLI Fund Management Application with Reporting and Portfolio Graph
 
+To run just open terminal or cmd:
+
+cd FundManagementCLI
+
+python fundmanagement.py
+or
+python3 fundmanagement.py
+
 A primitive fund management CLI application with basic functions.
 <ol>
 <li>Add Company</li>
@@ -18,10 +26,23 @@ A primitive fund management CLI application with basic functions.
 <li>Exit</li>
 </ol>  
 
-![Screenshot 2023-07-16 at 11 02 53 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/8efb4e3d-4ec1-4081-8f3b-0fe0105188c4)
+![Screenshot 2023-07-16 at 11 32 09 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/7236012a-a7f9-4436-bc20-dc40de645c77)
 
+![Screenshot 2023-07-16 at 11 32 20 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/f9f54c2f-8239-42c5-b4cb-2c84f98f814e)
 
-![Screenshot 2023-07-16 at 11 11 50 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/394be5bc-97a5-4eef-9e0e-3a92d3028e6d)
+![Screenshot 2023-07-16 at 11 32 31 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/6ff0c5d9-371f-4df7-a487-bf9a73e4156d)
+
+![Screenshot 2023-07-16 at 11 32 44 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/848d33d0-2c9a-4013-bfb1-d2332919916f)
+
+![Screenshot 2023-07-16 at 11 33 16 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/832eded9-8908-42ea-a665-e2d9737fa8a7)
+
+![Screenshot 2023-07-16 at 11 33 33 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/2d5955e3-6363-4723-82be-de9e18c556cd)
+
+![Screenshot 2023-07-16 at 11 34 07 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/52b4b0ba-1030-4355-9e58-477066125f60)
+
+![Screenshot 2023-07-16 at 11 34 36 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/5d8782d2-5096-4c22-9851-e2d1f3aada36)
+
+![Screenshot 2023-07-16 at 11 34 27 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/d5c36088-4bb4-47f0-82ea-e45f23b059b5)
 
 
 Please note, it is by no means perfect, WIP.
