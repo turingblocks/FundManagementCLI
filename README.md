@@ -9,6 +9,12 @@ A primitive fund management CLI application with basic functions.
 <li>Generate Fund Report (List)</li>
 <li>Generate Pie Chart</li>
 <li>Save Fund Data as CSV (Export)</li>
+<li>Issue Units</li>
+<li>Add Investor</li>
+<li>Add Investor Transaction</li>
+<li>Track Investor Transactions</li>
+<li>View Issued Units</li>
+<li>View Units Allocation</li>
 <li>Exit</li>
 </ol>  
 
