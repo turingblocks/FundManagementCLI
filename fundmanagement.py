@@ -9,9 +9,26 @@ class Company:
         self.forecasted_returns = forecasted_returns
 
 
+class Investor:
+    def __init__(self, email):
+        self.email = email
+        self.transactions = []
+
+    def add_transaction(self, units, value, preference):
+        transaction = {
+            'units': units,
+            'value': value,
+            'preference': preference
+        }
+        self.transactions.append(transaction)
+
+
 class Fund:
-    def __init__(self):
+    def __init__(self, total_units):
         self.companies = []
+        self.total_units = total_units
+        self.units_issued = 0
+        self.investors = []
 
     def add_company(self, company):
         self.companies.append(company)
@@ -72,12 +89,69 @@ class Fund:
                 writer.writerow([company.name, company.business_type, company.forecasted_returns])
         print(f"{Fore.GREEN}Fund data saved to {filename}.{Style.RESET_ALL}")
 
+    def issue_units(self, units):
+        if self.units_issued + units <= self.total_units:
+            self.units_issued += units
+            print(f"{Fore.GREEN}Issued {units} units.{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.RED}Not enough units available to issue.{Style.RESET_ALL}")
+
+    def add_investor(self, email):
+        investor = Investor(email)
+        self.investors.append(investor)
+        print(f"{Fore.GREEN}Added investor with email {email}.{Style.RESET_ALL}")
+
+    def add_investor_transaction(self, email, units, value, preference):
+        for investor in self.investors:
+            if investor.email == email:
+                investor.add_transaction(units, value, preference)
+                print(f"{Fore.GREEN}Added transaction for investor with email {email}.{Style.RESET_ALL}")
+                return
+        print(f"{Fore.RED}Investor with email {email} not found.{Style.RESET_ALL}")
+
+    def track_investor_transactions(self, email):
+        for investor in self.investors:
+            if investor.email == email:
+                print(f"\n{Fore.CYAN}Transactions for investor with email {email}:{Style.RESET_ALL}")
+                if investor.transactions:
+                    for transaction in investor.transactions:
+                        print(f"Units: {transaction['units']}")
+                        print(f"Value: {transaction['value']}")
+                        print(f"Preference: {transaction['preference']}")
+                        print()
+                else:
+                    print("No transactions found for the investor.")
+                return
+        print(f"{Fore.RED}Investor with email {email} not found.{Style.RESET_ALL}")
+
+    def view_issued_units(self):
+        print(f"\n{Fore.CYAN}Total Units Issued:{Style.RESET_ALL}")
+        print(f"Units Issued: {self.units_issued}")
+        print(f"Units Remaining: {self.total_units - self.units_issued}")
+        print()
+
+    def view_units_allocation(self):
+        print(f"\n{Fore.CYAN}Units Allocation:{Style.RESET_ALL}")
+        if self.investors:
+            for investor in self.investors:
+                total_units = 0
+                for transaction in investor.transactions:
+                    total_units += transaction['units']
+                allocation_percentage = (total_units / self.units_issued) * 100
+                print(f"Investor Email: {investor.email}")
+                print(f"Allocated Units: {total_units}")
+                print(f"Allocation Percentage: {allocation_percentage}%")
+                print()
+        else:
+            print("No investors found.")
+            print()
+
 
 def add_company_to_fund(fund):
     print("\n" + "-" * 30)
     name = input("Enter the name of the company: ")
     business_type = input("Enter the type of business: ")
-    forecasted_returns = float(input("Enter the forecasted returns: "))
+    forecasted_returns = input("Enter the forecasted returns (%): ")
     company = Company(name, business_type, forecasted_returns)
     fund.add_company(company)
 
@@ -109,8 +183,46 @@ def save_fund_data(fund):
     fund.save_as_csv()
 
 
+def issue_units_to_fund(fund):
+    print("\n" + "-" * 30)
+    units = int(input("Enter the number of units to issue: "))
+    fund.issue_units(units)
+
+
+def add_investor(fund):
+    print("\n" + "-" * 30)
+    email = input("Enter the email of the investor: ")
+    fund.add_investor(email)
+
+
+def add_investor_transaction(fund):
+    print("\n" + "-" * 30)
+    email = input("Enter the email of the investor: ")
+    units = int(input("Enter the number of units purchased: "))
+    value = float(input("Enter the transaction value (NZD $): "))
+    preference = input("Enter investment preference (specific businesses or whole fund): ")
+    fund.add_investor_transaction(email, units, value, preference)
+
+
+def track_investor_transactions(fund):
+    print("\n" + "-" * 30)
+    email = input("Enter the email of the investor: ")
+    fund.track_investor_transactions(email)
+
+
+def view_issued_units(fund):
+    print("\n" + "-" * 30)
+    fund.view_issued_units()
+
+
+def view_units_allocation(fund):
+    print("\n" + "-" * 30)
+    fund.view_units_allocation()
+
+
 def main():
-    fund = Fund()
+    total_units = 1000  # Set the total units for the fund
+    fund = Fund(total_units)
 
     while True:
         print("\n" + "=" * 30)
@@ -121,9 +233,15 @@ def main():
         print("4. Generate Fund Report")
         print("5. Generate Pie Chart")
         print("6. Save Fund Data as CSV")
-        print("7. Exit")
+        print("7. Issue Units")
+        print("8. Add Investor")
+        print("9. Add Investor Transaction")
+        print("10. Track Investor Transactions")
+        print("11. View Issued Units")
+        print("12. View Units Allocation")
+        print("13. Exit")
 
-        choice = input("Enter your choice (1-7): ")
+        choice = input("Enter your choice (1-13): ")
 
         if choice == "1":
             add_company_to_fund(fund)
@@ -138,6 +256,18 @@ def main():
         elif choice == "6":
             save_fund_data(fund)
         elif choice == "7":
+            issue_units_to_fund(fund)
+        elif choice == "8":
+            add_investor(fund)
+        elif choice == "9":
+            add_investor_transaction(fund)
+        elif choice == "10":
+            track_investor_transactions(fund)
+        elif choice == "11":
+            view_issued_units(fund)
+        elif choice == "12":
+            view_units_allocation(fund)
+        elif choice == "13":
             print("Exiting program...")
             break
         else:
