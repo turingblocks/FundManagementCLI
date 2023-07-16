@@ -26,6 +26,8 @@ A primitive fund management CLI application with basic functions.
 <li>Exit</li>
 </ol>  
 
+It will auto-save when you select "exit" or when you select "save fund data", if you close your terminal window, the information will probably be lost.
+
 ![Screenshot 2023-07-16 at 11 32 09 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/7236012a-a7f9-4436-bc20-dc40de645c77)
 
 ![Screenshot 2023-07-16 at 11 32 20 AM](https://github.com/turingblocks/FundManagementCLI/assets/101488664/f9f54c2f-8239-42c5-b4cb-2c84f98f814e)
