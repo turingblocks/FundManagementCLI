@@ -87,29 +87,56 @@ class Fund:
             writer.writerow(["Name", "Business Type", "Forecasted Returns"])
             for company in self.companies:
                 writer.writerow([company.name, company.business_type, company.forecasted_returns])
-            
+
             writer.writerow([])  # Add an empty row
-            
+
             writer.writerow(["Units Issued"])
             writer.writerow(["Total Units", self.total_units])
             writer.writerow(["Units Issued", self.units_issued])
             writer.writerow(["Units Remaining", self.total_units - self.units_issued])
-            
+
             writer.writerow([])  # Add an empty row
-            
+
             writer.writerow(["Investors"])
             writer.writerow(["Email"])
             for investor in self.investors:
                 writer.writerow([investor.email])
-            
+
             writer.writerow([])  # Add an empty row
-            
+
             writer.writerow(["Investor Transactions"])
             writer.writerow(["Email", "Units", "Value", "Preference"])
             for investor in self.investors:
                 for transaction in investor.transactions:
                     writer.writerow([investor.email, transaction['units'], transaction['value'], transaction['preference']])
         print(f"{Fore.GREEN}Fund data saved to {filename}.{Style.RESET_ALL}")
+
+    def load_from_csv(self, filename):
+        if os.path.isfile(filename):
+            self.companies = []
+            self.investors = []
+            with open(filename, 'r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row:
+                        if row[0] == "Name":
+                            # Skip the header row
+                            continue
+                        if row[0] == "Units Issued":
+                            # Skip the units issued section
+                            break
+                        if row[0] == "Investors":
+                            # Skip the investors section
+                            break
+                        if row[0] == "Investor Transactions":
+                            # Skip the investor transactions section
+                            break
+                        name, business_type, forecasted_returns = row
+                        company = Company(name, business_type, forecasted_returns)
+                        self.companies.append(company)
+            print(f"{Fore.GREEN}Fund data loaded from {filename}.{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.RED}Fund data file not found.{Style.RESET_ALL}")
 
     def issue_units(self, units):
         if self.units_issued + units <= self.total_units:
@@ -206,6 +233,12 @@ def save_fund_data(fund):
     fund.save_to_csv(filename)
 
 
+def load_fund_data(fund):
+    print("\n" + "-" * 30)
+    filename = "fund_data.csv"
+    fund.load_from_csv(filename)
+
+
 def issue_units_to_fund(fund):
     print("\n" + "-" * 30)
     units = int(input("Enter the number of units to issue: "))
@@ -250,10 +283,10 @@ def main():
     # Check if the fund_data.csv file exists
     filename = "fund_data.csv"
     if os.path.isfile(filename):
-        fund.load_from_csv(filename)
+        load_fund_data(fund)
     else:
         # Create the fund_data.csv file
-        fund.save_to_csv(filename)
+        save_fund_data(fund)
 
     while True:
         print("\n" + "=" * 30)
@@ -264,15 +297,16 @@ def main():
         print("4. Generate Fund Report")
         print("5. Generate Pie Chart")
         print("6. Save Fund Data as CSV")
-        print("7. Issue Units")
-        print("8. Add Investor")
-        print("9. Add Investor Transaction")
-        print("10. Track Investor Transactions")
-        print("11. View Issued Units")
-        print("12. View Units Allocation")
-        print("13. Exit")
+        print("7. Load Fund Data from CSV")
+        print("8. Issue Units")
+        print("9. Add Investor")
+        print("10. Add Investor Transaction")
+        print("11. Track Investor Transactions")
+        print("12. View Issued Units")
+        print("13. View Units Allocation")
+        print("14. Exit")
 
-        choice = input("Enter your choice (1-13): ")
+        choice = input("Enter your choice (1-14): ")
 
         if choice == "1":
             add_company_to_fund(fund)
@@ -287,18 +321,20 @@ def main():
         elif choice == "6":
             save_fund_data(fund)
         elif choice == "7":
-            issue_units_to_fund(fund)
+            load_fund_data(fund)
         elif choice == "8":
-            add_investor(fund)
+            issue_units_to_fund(fund)
         elif choice == "9":
-            add_investor_transaction(fund)
+            add_investor(fund)
         elif choice == "10":
-            track_investor_transactions(fund)
+            add_investor_transaction(fund)
         elif choice == "11":
-            view_issued_units(fund)
+            track_investor_transactions(fund)
         elif choice == "12":
-            view_units_allocation(fund)
+            view_issued_units(fund)
         elif choice == "13":
+            view_units_allocation(fund)
+        elif choice == "14":
             save_fund_data(fund)  # Save fund data before exiting
             print("Exiting program...")
             break
@@ -306,7 +342,7 @@ def main():
             print("Invalid choice. Please try again.")
 
     # Save fund data to CSV file
-    fund.save_to_csv(filename)
+    save_fund_data(fund)
 
 if __name__ == "__main__":
     main()
