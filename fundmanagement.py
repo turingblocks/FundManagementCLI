@@ -1,4 +1,5 @@
 import csv
+import os
 import matplotlib.pyplot as plt
 from colorama import Fore, Style
 
@@ -80,8 +81,7 @@ class Fund:
         plt.title(f"{Fore.MAGENTA}Fund Split by Business Type{Style.RESET_ALL}")
         plt.show()
 
-    def save_as_csv(self):
-        filename = "fund_data.csv"
+    def save_to_csv(self, filename):
         with open(filename, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(["Name", "Business Type", "Forecasted Returns"])
@@ -202,7 +202,8 @@ def generate_pie_chart(fund):
 
 def save_fund_data(fund):
     print("\n" + "-" * 30)
-    fund.save_as_csv()
+    filename = "fund_data.csv"
+    fund.save_to_csv(filename)
 
 
 def issue_units_to_fund(fund):
@@ -245,6 +246,14 @@ def view_units_allocation(fund):
 def main():
     total_units = 1000  # Set the total units for the fund
     fund = Fund(total_units)
+
+    # Check if the fund_data.csv file exists
+    filename = "fund_data.csv"
+    if os.path.isfile(filename):
+        fund.load_from_csv(filename)
+    else:
+        # Create the fund_data.csv file
+        fund.save_to_csv(filename)
 
     while True:
         print("\n" + "=" * 30)
@@ -290,11 +299,14 @@ def main():
         elif choice == "12":
             view_units_allocation(fund)
         elif choice == "13":
+            save_fund_data(fund)  # Save fund data before exiting
             print("Exiting program...")
             break
         else:
             print("Invalid choice. Please try again.")
 
+    # Save fund data to CSV file
+    fund.save_to_csv(filename)
 
 if __name__ == "__main__":
     main()
