@@ -87,6 +87,28 @@ class Fund:
             writer.writerow(["Name", "Business Type", "Forecasted Returns"])
             for company in self.companies:
                 writer.writerow([company.name, company.business_type, company.forecasted_returns])
+            
+            writer.writerow([])  # Add an empty row
+            
+            writer.writerow(["Units Issued"])
+            writer.writerow(["Total Units", self.total_units])
+            writer.writerow(["Units Issued", self.units_issued])
+            writer.writerow(["Units Remaining", self.total_units - self.units_issued])
+            
+            writer.writerow([])  # Add an empty row
+            
+            writer.writerow(["Investors"])
+            writer.writerow(["Email"])
+            for investor in self.investors:
+                writer.writerow([investor.email])
+            
+            writer.writerow([])  # Add an empty row
+            
+            writer.writerow(["Investor Transactions"])
+            writer.writerow(["Email", "Units", "Value", "Preference"])
+            for investor in self.investors:
+                for transaction in investor.transactions:
+                    writer.writerow([investor.email, transaction['units'], transaction['value'], transaction['preference']])
         print(f"{Fore.GREEN}Fund data saved to {filename}.{Style.RESET_ALL}")
 
     def issue_units(self, units):
