@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 from colorama import Fore, Style
 
+
 class Company:
     def __init__(self, name, business_type, forecasted_returns):
         self.name = name
@@ -15,6 +16,7 @@ class Investor:
         self.email = email
         self.transactions = []
 
+
     def add_transaction(self, units, value, preference):
         transaction = {
             'units': units,
@@ -25,11 +27,12 @@ class Investor:
 
 
 class Fund:
-    def __init__(self, total_units):
+    def __init__(self, total_units, investment_fee=2.0):
         self.companies = []
         self.total_units = total_units
         self.units_issued = 0
         self.investors = []
+        self.investment_fee = investment_fee
 
     def add_company(self, company):
         self.companies.append(company)
@@ -276,9 +279,17 @@ def view_units_allocation(fund):
     fund.view_units_allocation()
 
 
+def modify_investment_fee(fund):
+    print("\n" + "-" * 30)
+    new_fee = float(input("Enter the new investment management fee: "))
+    fund.investment_fee = new_fee
+    print(f"{Fore.GREEN}Investment management fee updated to {new_fee}%.{Style.RESET_ALL}")
+
+
 def main():
     total_units = 1000  # Set the total units for the fund
-    fund = Fund(total_units)
+    investment_fee = 2.0  # Set the initial investment management fee
+    fund = Fund(total_units, investment_fee)
 
     # Check if the fund_data.csv file exists
     filename = "fund_data.csv"
@@ -291,22 +302,52 @@ def main():
     while True:
         print("\n" + "=" * 30)
         print(f"{Fore.BLUE}--- Fund Management System ---{Style.RESET_ALL}")
+        print("1. Fund Management")
+        print("2. Unit Management")
+        print("3. Investor Maintenance")
+        print("4. Save Fund Data as CSV")
+        print("5. Load Fund Data from CSV")
+        print("6. Modify Investment Management Fee")
+        print("7. Exit")
+
+        choice = input("Enter your choice (1-7): ")
+
+        if choice == "1":
+            fund_management_menu(fund)
+        elif choice == "2":
+            unit_management_menu(fund)
+        elif choice == "3":
+            investor_maintenance_menu(fund)
+        elif choice == "4":
+            save_fund_data(fund)
+        elif choice == "5":
+            load_fund_data(fund)
+        elif choice == "6":
+            modify_investment_fee(fund)
+        elif choice == "7":
+            save_fund_data(fund)  # Save fund data before exiting
+            print("Exiting program...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+    # Save fund data to CSV file
+    save_fund_data(fund)
+
+
+def fund_management_menu(fund):
+    while True:
+        print("\n" + "=" * 30)
+        print(f"{Fore.BLUE}--- Fund Management ---{Style.RESET_ALL}")
         print("1. Add Company")
         print("2. Delete Company")
         print("3. Track Companies")
         print("4. Generate Fund Report")
         print("5. Generate Pie Chart")
-        print("6. Save Fund Data as CSV")
-        print("7. Load Fund Data from CSV")
-        print("8. Issue Units")
-        print("9. Add Investor")
-        print("10. Add Investor Transaction")
-        print("11. Track Investor Transactions")
-        print("12. View Issued Units")
-        print("13. View Units Allocation")
-        print("14. Exit")
+        print("6. Modify Investment Management Fee")
+        print("7. Back to Main Menu")
 
-        choice = input("Enter your choice (1-14): ")
+        choice = input("Enter your choice (1-7): ")
 
         if choice == "1":
             add_company_to_fund(fund)
@@ -319,30 +360,58 @@ def main():
         elif choice == "5":
             generate_pie_chart(fund)
         elif choice == "6":
-            save_fund_data(fund)
+            modify_investment_fee(fund)
         elif choice == "7":
-            load_fund_data(fund)
-        elif choice == "8":
-            issue_units_to_fund(fund)
-        elif choice == "9":
-            add_investor(fund)
-        elif choice == "10":
-            add_investor_transaction(fund)
-        elif choice == "11":
-            track_investor_transactions(fund)
-        elif choice == "12":
-            view_issued_units(fund)
-        elif choice == "13":
-            view_units_allocation(fund)
-        elif choice == "14":
-            save_fund_data(fund)  # Save fund data before exiting
-            print("Exiting program...")
             break
         else:
             print("Invalid choice. Please try again.")
 
-    # Save fund data to CSV file
-    save_fund_data(fund)
+
+def unit_management_menu(fund):
+    while True:
+        print("\n" + "=" * 30)
+        print(f"{Fore.BLUE}--- Unit Management ---{Style.RESET_ALL}")
+        print("1. Issue Units")
+        print("2. View Issued Units")
+        print("3. View Units Allocation")
+        print("4. Back to Main Menu")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            issue_units_to_fund(fund)
+        elif choice == "2":
+            view_issued_units(fund)
+        elif choice == "3":
+            view_units_allocation(fund)
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+def investor_maintenance_menu(fund):
+    while True:
+        print("\n" + "=" * 30)
+        print(f"{Fore.BLUE}--- Investor Maintenance ---{Style.RESET_ALL}")
+        print("1. Add Investor")
+        print("2. Add Investor Transaction")
+        print("3. Track Investor Transactions")
+        print("4. Back to Main Menu")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            add_investor(fund)
+        elif choice == "2":
+            add_investor_transaction(fund)
+        elif choice == "3":
+            track_investor_transactions(fund)
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
 
 if __name__ == "__main__":
     main()
