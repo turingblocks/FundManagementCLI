@@ -9,7 +9,7 @@ To run just open terminal or cmd:
 or
 ``` python3 fundmanagement.py ```
 
-A primitive fund management CLI application with basic functions.
+A primitive fund management CLI application with basic functions. Added submenus and investment management fee.
 <ol>
 <li>Add Company</li>
 <li>Delete Company</li>
