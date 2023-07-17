@@ -301,7 +301,7 @@ def main():
 
     while True:
         print("\n" + "=" * 30)
-        print(f"{Fore.BLUE}--- Fund Management System ---{Style.RESET_ALL}")
+        print(f"{Fore.BLUE}--- turingblocks Fund Management System ---{Style.RESET_ALL}")
         print("1. Fund Management")
         print("2. Unit Management")
         print("3. Investor Maintenance")
